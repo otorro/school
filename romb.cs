@@ -4,10 +4,31 @@ class Program
 {
     static void Main()
     {
-        Console.Write("Podaj rozmiar rombu: ");
-        int rozmiar = Convert.ToInt32(Console.ReadLine());
+        int maksymalnaLiczbaProb = 3;
+        int liczbaProb = 0;
+        int rozmiar = 0;
 
-        RysujRomb(rozmiar);
+        while (liczbaProb < maksymalnaLiczbaProb)
+        {
+            Console.Write("Podaj rozmiar rombu (większy lub równy 3, nieparzysty): ");
+            rozmiar = Convert.ToInt32(Console.ReadLine());
+
+            if (rozmiar >= 3 && rozmiar % 2 == 1)
+            {
+                RysujRomb(rozmiar);
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Nieprawidłowy rozmiar rombu.");
+                liczbaProb++;
+            }
+        }
+
+        if (liczbaProb == maksymalnaLiczbaProb)
+        {
+            Console.WriteLine("Przekroczono maksymalną liczbę prób. Program zostaje zakończony.");
+        }
 
         Console.ReadLine();
     }
@@ -27,32 +48,17 @@ class Program
 
         for (int i = 0; i < rozmiar; i++)
         {
-            for (int j = 0; j < rozmiar - i - 1; j++)
+            int liczbaSpacji = Math.Abs(rozmiar / 2 - i);
+            int liczbaZnakow = rozmiar - 2 * liczbaSpacji;
+
+            for (int j = 0; j < liczbaSpacji; j++)
             {
                 Console.Write(" ");
             }
 
-            for (int j = 0; j < 2 * i + 1; j++)
+            for (int j = 0; j < liczbaZnakow; j++)
             {
-                if (j == 0 || j == 2 * i)
-                    Console.Write(znakObramowania);
-                else
-                    Console.Write(znakWnętrza);
-            }
-
-            Console.WriteLine();
-        }
-
-        for (int i = rozmiar - 2; i >= 0; i--)
-        {
-            for (int j = 0; j < rozmiar - i - 1; j++)
-            {
-                Console.Write(" ");
-            }
-
-            for (int j = 0; j < 2 * i + 1; j++)
-            {
-                if (j == 0 || j == 2 * i)
+                if (j == 0 || j == liczbaZnakow - 1)
                     Console.Write(znakObramowania);
                 else
                     Console.Write(znakWnętrza);
